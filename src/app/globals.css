@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-poppins: 'Poppins', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+}
+
+body {
+  font-family: var(--font-poppins);
+  background-color: #0b0f19;
+  color: #f3f4f6;
+  min-height: 100vh;
+}
+
+/* Custom text stroke effects */
+.text-stroke-thick {
+  -webkit-text-stroke: 6px #000;
+  paint-order: stroke fill;
+}
+
+.text-stroke-medium {
+  -webkit-text-stroke: 4px #000;
+  paint-order: stroke fill;
+}
+
+.text-stroke-white {
+  -webkit-text-stroke: 4px #ffffff;
+  paint-order: stroke fill;
+}
+
+/* Gold gradient text */
+.gold-yellow-gradient {
+  background: linear-gradient(to bottom, #ffea00 0%, #ffcc00 50%, #e69500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Scan & Pay Banner gradient */
+.banner-gradient {
+  background: linear-gradient(90deg, #056a33 0%, #0b8a43 50%, #056a33 100%);
+}
+
+/* Poster background gradients */
+.poster-bg-crimson {
+  background: linear-gradient(135deg, #e6005c 0%, #b80048 50%, #8a0035 100%);
+}
+
+.poster-bg-emerald {
+  background: linear-gradient(135deg, #059669 0%, #047857 50%, #064e3b 100%);
+}
+
+.poster-bg-royal {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e3a8a 100%);
+}
+
+.poster-bg-purple {
+  background: linear-gradient(135deg, #9333ea 0%, #7e22ce 50%, #581c87 100%);
+}
+
+/* Print Styles */
+@media print {
+  @page {
+    size: auto;
+    margin: 10mm;
+  }
+  body {
+    background: transparent !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-area {
+    width: 100% !important;
+    max-width: 440px !important;
+    margin: 0 auto !important;
+    box-shadow: none !important;
+    transform: none !important;
+    page-break-inside: avoid !important;
+  }
+}

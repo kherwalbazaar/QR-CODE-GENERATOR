@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6005c" />
+      <stop offset="50%" stop-color="#b80048" />
+      <stop offset="100%" stop-color="#8a0035" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffea00" />
+      <stop offset="100%" stop-color="#ffaa00" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background with rounded corners -->
+  <rect width="512" height="512" rx="108" fill="url(#bgGrad)" />
+
+  <!-- Center Card -->
+  <rect x="76" y="76" width="360" height="360" rx="44" fill="#ffffff" />
+  
+  <!-- L-brackets on card -->
+  <path d="M 96 136 L 96 96 L 136 96" stroke="#e6005c" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 416 136 L 416 96 L 376 96" stroke="#e6005c" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 96 376 L 96 416 L 136 416" stroke="#e6005c" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 416 376 L 416 416 L 376 416" stroke="#e6005c" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- QR Position Detection Patterns -->
+  <!-- Top-Left Finder -->
+  <rect x="120" y="120" width="80" height="80" rx="14" fill="#111827" />
+  <rect x="136" y="136" width="48" height="48" rx="8" fill="#ffffff" />
+  <rect x="148" y="148" width="24" height="24" rx="4" fill="#111827" />
+
+  <!-- Top-Right Finder -->
+  <rect x="312" y="120" width="80" height="80" rx="14" fill="#111827" />
+  <rect x="328" y="136" width="48" height="48" rx="8" fill="#ffffff" />
+  <rect x="340" y="148" width="24" height="24" rx="4" fill="#111827" />
+
+  <!-- Bottom-Left Finder -->
+  <rect x="120" y="312" width="80" height="80" rx="14" fill="#111827" />
+  <rect x="136" y="328" width="48" height="48" rx="8" fill="#ffffff" />
+  <rect x="148" y="340" width="24" height="24" rx="4" fill="#111827" />
+
+  <!-- Center Badge: UPI PYMT -->
+  <rect x="180" y="216" width="152" height="80" rx="18" fill="#e6005c" stroke="#ffffff" stroke-width="6" />
+  <text x="256" y="258" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="28" fill="#ffffff" text-anchor="middle" letter-spacing="1">UPI</text>
+  <text x="256" y="284" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="20" fill="url(#goldGrad)" text-anchor="middle" letter-spacing="2">PYMT</text>
+</svg>
