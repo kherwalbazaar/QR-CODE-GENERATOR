@@ -149,7 +149,7 @@ export default function Home() {
                 Live Scannable Preview
               </span>
               <span className="text-[11px] text-gray-500 font-mono">
-                Aspect 1:1.45 (Poster Ratio)
+                Aspect 1:1.5 (Poster Ratio)
               </span>
             </div>
 

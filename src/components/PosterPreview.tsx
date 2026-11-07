@@ -120,11 +120,11 @@ export default function PosterPreview({
       className="poster-wrap w-full max-w-[440px] flex items-center justify-center transition-transform duration-200 select-none print:m-0 print:p-0 my-3 md:my-0 pb-6 md:pb-0"
       style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }}
     >
-      {/* Poster Container (Ratio ~ 1:1.45) */}
+      {/* Poster Container (Ratio ~ 1:1.5) */}
       <div
         ref={posterRef}
         id="poster-canvas"
-        className={`poster-stage relative w-full max-w-[440px] aspect-[1/1.45] poster-bg-${config.theme} rounded-none shadow-2xl overflow-hidden flex flex-col justify-between p-4 pb-5 text-white print-area transition-all duration-1000 ease-in-out`}
+        className={`poster-stage relative w-full max-w-[440px] aspect-[1/1.5] poster-bg-${config.theme} rounded-none shadow-2xl overflow-hidden flex flex-col justify-between p-4 pb-5 text-white print-area transition-all duration-1000 ease-in-out`}
         style={{
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.65)',
         }}
@@ -213,7 +213,7 @@ export default function PosterPreview({
         {/* CENTER SECTION: DYNAMIC QR CODE CARD */}
         <div className="relative z-10 flex justify-center my-auto py-1">
           <div
-            className={`bg-white p-3 rounded-3xl shadow-2xl border-4 ${theme.bracketColor} relative w-[240px] aspect-square flex items-center justify-center`}
+            className={`bg-white p-2 rounded-3xl shadow-2xl border-4 ${theme.bracketColor} relative w-[270px] aspect-square flex items-center justify-center`}
           >
             {/* Corner Accent L-Brackets */}
             <div
@@ -230,13 +230,13 @@ export default function PosterPreview({
             />
 
             {/* High Definition Scannable QR Code */}
-            <div className="relative flex items-center justify-center p-1 bg-white rounded-xl">
+            <div className="relative flex items-center justify-center bg-white rounded-xl">
               <QRCodeSVG
                 value={qrValue}
-                size={220}
+                size={246}
                 level="H"
                 includeMargin={false}
-                className="w-full h-full max-w-[210px] max-h-[210px]"
+                className="w-full h-full max-w-[246px] max-h-[246px]"
               />
 
               {/* Center Logo / Watermark Badge */}
