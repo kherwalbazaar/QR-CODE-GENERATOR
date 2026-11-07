@@ -1,56 +1,25 @@
 'use client';
 
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import { toPng } from 'html-to-image';
 import confetti from 'canvas-confetti';
 import {
-  Sparkles,
   Printer,
   Download,
   ZoomIn,
   ZoomOut,
-  Maximize2,
-  Minimize2,
   QrCode,
   CheckCircle,
 } from 'lucide-react';
 import PosterPreview from '@/components/PosterPreview';
-import PosterEditor from '@/components/PosterEditor';
-import { DEFAULT_POSTER_CONFIG, PosterConfig } from '@/types/poster';
+import { DEFAULT_POSTER_CONFIG } from '@/types/poster';
 
 export default function Home() {
-  const [config, setConfig] = useState<PosterConfig>(DEFAULT_POSTER_CONFIG);
+  const config = DEFAULT_POSTER_CONFIG;
   const [zoom, setZoom] = useState<number>(1);
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
   const [downloadSuccess, setDownloadSuccess] = useState<boolean>(false);
-  const [fullView, setFullView] = useState<boolean>(false);
-  const [autoRotateTheme, setAutoRotateTheme] = useState<boolean>(true);
   const posterRef = useRef<HTMLDivElement>(null);
-
-  // Automatically and randomly change theme every 30 seconds
-  useEffect(() => {
-    if (!autoRotateTheme) return;
-
-    const themeKeys: Array<PosterConfig['theme']> = [
-      'crimson',
-      'emerald',
-      'royal',
-      'purple',
-    ];
-
-    const timer = setInterval(() => {
-      setConfig((prev) => {
-        const otherThemes = themeKeys.filter((t) => t !== prev.theme);
-        const randomTheme = otherThemes[Math.floor(Math.random() * otherThemes.length)];
-        return {
-          ...prev,
-          theme: randomTheme,
-        };
-      });
-    }, 30000);
-
-    return () => clearInterval(timer);
-  }, [autoRotateTheme]);
 
   const handleDownload = useCallback(async () => {
     if (!posterRef.current) return;
@@ -139,15 +108,6 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Full preview mode toggle */}
-          <button
-            onClick={() => setFullView(!fullView)}
-            className="p-2 text-gray-400 hover:text-white bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-xl transition"
-            title={fullView ? 'Show Editor' : 'Hide Editor'}
-          >
-            {fullView ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-          </button>
-
           {/* Download & Print Quick Buttons */}
           <button
             onClick={handlePrint}
@@ -169,7 +129,7 @@ export default function Home() {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-2 pt-2 pb-14 sm:px-6 sm:pt-6 sm:pb-12 lg:p-8 flex flex-col justify-center">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-0 sm:px-6 sm:pt-6 sm:pb-12 lg:p-8 flex flex-col justify-center">
         {downloadSuccess && (
           <div className="no-print mb-4 p-3 bg-emerald-950/80 border border-emerald-600/50 rounded-2xl flex items-center justify-between text-emerald-200 text-xs sm:text-sm animate-fade-in shadow-xl">
             <div className="flex items-center gap-2">
@@ -180,43 +140,21 @@ export default function Home() {
           </div>
         )}
 
-        <div className={`grid grid-cols-1 ${fullView ? 'lg:grid-cols-1' : 'lg:grid-cols-12'} gap-8 items-start w-full`}>
-          {/* Left Column: Editor Controls (Hidden on mobile and when in Full View) */}
-          {!fullView && (
-            <div className="no-print hidden md:block lg:col-span-6 xl:col-span-5 order-2 lg:order-1">
-              <PosterEditor
-                config={config}
-                onChange={setConfig}
-                onDownload={handleDownload}
-                onPrint={handlePrint}
-                isDownloading={isDownloading}
-                autoRotateTheme={autoRotateTheme}
-                onToggleAutoRotateTheme={() => setAutoRotateTheme((prev) => !prev)}
-              />
+        <div className="w-full flex justify-center">
+          {/* Live Poster Canvas */}
+          <div className="w-full flex flex-col items-center justify-center p-0 pb-0 sm:p-6 bg-transparent md:bg-gray-950/40 rounded-none border-0 md:border md:border-gray-800/60 backdrop-blur-sm min-h-0 md:min-h-[600px] overflow-x-auto">
+            <div className="hidden md:flex w-full justify-between items-center mb-4 px-2 no-print max-w-[440px]">
+              <span className="text-xs font-semibold text-gray-400 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                Live Scannable Preview
+              </span>
+              <span className="text-[11px] text-gray-500 font-mono">
+                Aspect 1:1.45 (Poster Ratio)
+              </span>
             </div>
-          )}
 
-          {/* Right Column: Live Poster Canvas */}
-          <div
-            className={`${
-              fullView ? 'lg:col-span-12' : 'lg:col-span-6 xl:col-span-7'
-            } order-1 lg:order-2 flex flex-col items-center justify-center w-full`}
-          >
-            {/* Canvas Container */}
-            <div className="w-full flex flex-col items-center justify-center p-0 pb-10 sm:p-6 bg-transparent md:bg-gray-950/40 rounded-none border-0 md:border md:border-gray-800/60 backdrop-blur-sm min-h-0 md:min-h-[600px] overflow-x-auto">
-              <div className="hidden md:flex w-full justify-between items-center mb-4 px-2 no-print max-w-[440px]">
-                <span className="text-xs font-semibold text-gray-400 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Live Scannable Preview
-                </span>
-                <span className="text-[11px] text-gray-500 font-mono">
-                  Aspect 1:1.45 (Poster Ratio)
-                </span>
-              </div>
-
-              {/* The Actual Poster */}
-              <PosterPreview config={config} posterRef={posterRef} scale={zoom} />
-            </div>
+            {/* The Actual Poster */}
+            <PosterPreview config={config} posterRef={posterRef} scale={zoom} />
           </div>
         </div>
       </main>

@@ -22,22 +22,13 @@ A high-performance, responsive **Next.js & Tailwind CSS** payment poster generat
    - Supports custom URL / text mode (for website links, WiFi, vCards, etc.).
    - Error Correction Level **H (High)** with custom center watermark badge ("KB" or uploaded store logo).
 
-3. **Interactive Studio & Customization Controls**:
-   - **Store Details**: Edit Title Line 1, Title Line 2, Banner pill text, and Center watermark/logo.
-   - **Payment & Pricing**: Customize UPI ID (VPA), Merchant Name, Optional Fixed Amount, Currency, and Transaction Notes.
-   - **Color Themes**:
-     - *Kherwal Crimson (Original)*
-     - *Forest Emerald*
-     - *Royal Blue*
-     - *Neon Violet*
-     - *Midnight Gold*
-   - **Badges**: Edit feature highlights and switch icons (Shield, Bolt, Truck, Bag, Lock, Award, Support).
-   - **Presets**: 1-click presets for *Kherwal Bazaar*, *Grocery Supermart*, *Fashion Boutique*, and *Cafe & Bakery*.
+3. **Focused QR Poster View**:
+   - The app now displays only the finished payment poster — no editing sidebar.
+   - Store name, banner, footer, payment details, and QR center badge are configured in `src/types/poster.ts` (`DEFAULT_POSTER_CONFIG`).
 
 4. **Export & Print Ready**:
    - 📥 **Export High-Res PNG**: Ultra-sharp 3x pixel ratio rendering for digital signage or print.
    - 🖨️ **Print**: Specially formatted `@media print` rules for A4 and photo paper.
-   - 📋 **Copy Link**: One-click clipboard copy for the generated UPI payment URI.
 
 ---
 
@@ -72,10 +63,9 @@ QR CODE GENERATOR/
 │   ├── app/
 │   │   ├── globals.css          # Typography, strokes, gradients, print styles
 │   │   ├── layout.tsx           # Root Next.js layout & metadata
-│   │   └── page.tsx             # Interactive Studio UI & live canvas
+│   │   └── page.tsx             # QR poster view, export & print
 │   ├── components/
-│   │   ├── PosterPreview.tsx    # Pixel-perfect scannable poster component
-│   │   └── PosterEditor.tsx     # Customization sidebar controls & presets
+│   │   └── PosterPreview.tsx    # Pixel-perfect scannable poster component
 │   └── types/
 │       └── poster.ts            # Type definitions, presets & theme palettes
 └── README.md

@@ -61,6 +61,27 @@ body {
   background: linear-gradient(135deg, #9333ea 0%, #7e22ce 50%, #581c87 100%);
 }
 
+/* Mobile full-bleed poster (screen only) */
+@media screen and (max-width: 767px) {
+  .poster-wrap {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .poster-stage {
+    width: 100% !important;
+    max-width: none !important;
+    height: 100vh;
+    height: 100dvh;
+    aspect-ratio: auto !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding-top: max(1rem, env(safe-area-inset-top)) !important;
+    padding-bottom: max(2rem, env(safe-area-inset-bottom)) !important;
+  }
+}
+
 /* Print Styles */
 @media print {
   @page {
