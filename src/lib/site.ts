@@ -1,6 +1,11 @@
 /** Shared site constants used by metadata, robots, sitemap and the web manifest. */
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'http://localhost:3000';
+const vercelUrl =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (vercelUrl ? `https://${vercelUrl}` : 'http://localhost:3000')
+).replace(/\/+$/, '');
 
 export const SITE_NAME = 'UPI PYMT';
 export const SITE_TITLE = 'UPI PYMT — UPI Payment QR Poster Generator';
