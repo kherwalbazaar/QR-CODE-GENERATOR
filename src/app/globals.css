@@ -80,7 +80,7 @@ body {
 }
 
 .poster-qr {
-  width: min(100%, 352px, max(120px, calc(100dvh - 430px)));
+  width: 90%;
 }
 
 /* Mobile full-bleed poster (screen only) */

@@ -198,7 +198,7 @@ export default function PosterPreview({
       {/* Poster Container (Ratio ~ 1:1.86) */}
       <div
         id="poster-canvas"
-        className={`poster-stage relative h-full w-full max-w-[440px] aspect-auto ${theme.bgClass} rounded-none shadow-2xl overflow-hidden flex flex-col justify-between py-4 px-2 pb-5 print-area`}
+        className={`poster-stage relative h-full w-full aspect-auto ${theme.bgClass} rounded-none shadow-2xl overflow-hidden flex flex-col justify-between py-4 px-2 pb-5 print-area`}
         style={{
           color: isLight ? '#5c0027' : '#ffffff',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.65)',
@@ -288,7 +288,7 @@ export default function PosterPreview({
         {/* CENTER SECTION: DYNAMIC QR CODE CARD */}
         <div className="relative z-10 flex justify-center my-auto py-1">
           <div
-            className={`bg-white p-2 rounded-3xl shadow-2xl border-[6px] ${theme.strokeColor} relative w-[calc(100%_+_16px)] max-w-[400px] shrink-0 aspect-square flex items-center justify-center`}
+            className={`bg-white p-2 rounded-3xl shadow-2xl border-[6px] ${theme.strokeColor} relative w-[95%] shrink-0 aspect-square flex items-center justify-center`}
           >
             {/* Corner Accent L-Brackets */}
             <div
@@ -311,7 +311,7 @@ export default function PosterPreview({
                 size={352}
                 level="H"
                 includeMargin={false}
-                className="w-full h-full max-w-[352px] max-h-[352px]"
+                className="w-full h-full"
               />
 
               {/* Center Logo / Watermark Badge */}
