@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { toSvg } from 'html-to-image';
 import confetti from 'canvas-confetti';
 import {
@@ -10,6 +10,7 @@ import {
   ZoomOut,
   QrCode,
   CheckCircle,
+  IndianRupee,
 } from 'lucide-react';
 import PosterPreview from '@/components/PosterPreview';
 import { DEFAULT_POSTER_CONFIG } from '@/types/poster';
@@ -19,7 +20,33 @@ export default function Home() {
   const [zoom, setZoom] = useState<number>(1);
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
   const [downloadSuccess, setDownloadSuccess] = useState<boolean>(false);
+  const [amountInput, setAmountInput] = useState('');
+  const [amountError, setAmountError] = useState('');
+  const [activePayment, setActivePayment] = useState<{ amount: string } | null>(null);
   const posterRef = useRef<HTMLDivElement>(null);
+  const previewConfig = activePayment
+    ? { ...config, amount: activePayment.amount }
+    : config;
+
+  useEffect(() => {
+    if (!activePayment) return;
+
+    const timer = window.setTimeout(() => setActivePayment(null), 15000);
+    return () => window.clearTimeout(timer);
+  }, [activePayment]);
+
+  const handleAmountSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const amount = amountInput.trim();
+
+    if (!/^\d+(\.\d{1,2})?$/.test(amount) || Number(amount) <= 0) {
+      setAmountError('Enter an amount greater than ₹0 (up to 2 decimals).');
+      return;
+    }
+
+    setAmountError('');
+    setActivePayment({ amount });
+  };
 
   const handleDownload = useCallback(async () => {
     if (!posterRef.current) return;
@@ -104,25 +131,65 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#070b12] text-gray-100 flex flex-col font-poppins selection:bg-pink-600 selection:text-white">
-      {/* Top Navbar (Hidden on mobile and when printing) */}
-      <header className="no-print hidden md:flex border-b border-gray-800/80 bg-gray-950/80 backdrop-blur-md sticky top-0 z-50 px-4 sm:px-8 py-3.5 items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-pink-600 to-rose-500 p-0.5 shadow-lg shadow-pink-600/30 flex items-center justify-center">
-            <div className="w-full h-full bg-gray-950 rounded-[14px] flex items-center justify-center">
-              <QrCode className="w-5 h-5 text-pink-500" />
+      {/* Top Header Navbar */}
+      <header className="no-print border-b border-gray-800/80 bg-gray-950/90 backdrop-blur-md sticky top-0 z-50 px-3.5 sm:px-8 py-3 flex flex-wrap items-center justify-between gap-y-2">
+        <div className="order-1 flex items-center gap-2.5 sm:gap-3">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-pink-600 to-rose-500 p-0.5 shadow-lg shadow-pink-600/30 flex items-center justify-center shrink-0">
+            <div className="w-full h-full bg-gray-950 rounded-[10px] sm:rounded-[14px] flex items-center justify-center">
+              <QrCode className="w-4 h-4 sm:w-5 sm:h-5 text-pink-500" />
             </div>
           </div>
           <div>
-            <h1 className="text-base sm:text-lg font-black tracking-wide text-white flex items-center gap-2">
-              Kherwal Bazaar <span className="text-pink-500 text-xs px-2 py-0.5 rounded-full bg-pink-500/10 border border-pink-500/30">Next.js Studio</span>
+            <h1 className="text-base sm:text-lg font-black tracking-wider text-white uppercase font-poppins">
+              KHERWAL BAZAAR
             </h1>
-            <p className="text-[11px] text-gray-400 hidden sm:block">
-              Dynamic UPI Payment Poster Generator & High-Res Print Studio
+            <p className="text-[10px] sm:text-[11px] text-gray-400 hidden sm:block">
+              UPI Payment QR Code & Poster Studio
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <form
+          onSubmit={handleAmountSubmit}
+          className="order-3 basis-full sm:order-2 sm:basis-auto sm:flex-1 sm:max-w-xs sm:mx-6"
+        >
+          <div className="flex gap-2">
+            <label className="sr-only" htmlFor="payment-amount">
+              Payment amount in rupees
+            </label>
+            <div className="relative min-w-0 flex-1">
+              <IndianRupee className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+              <input
+                id="payment-amount"
+                type="text"
+                inputMode="decimal"
+                autoComplete="off"
+                placeholder="Enter amount"
+                value={amountInput}
+                onChange={(event) => {
+                  setAmountInput(event.target.value);
+                  if (amountError) setAmountError('');
+                }}
+                aria-invalid={Boolean(amountError)}
+                aria-describedby={amountError ? 'payment-amount-error' : undefined}
+                className="h-10 w-full rounded-xl border border-gray-700 bg-gray-900 pl-9 pr-3 text-sm text-white placeholder:text-gray-500 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/30"
+              />
+            </div>
+            <button
+              type="submit"
+              className="h-10 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-5 text-sm font-extrabold text-white shadow-md transition hover:from-pink-500 hover:to-rose-500 focus:outline-none focus:ring-2 focus:ring-pink-400"
+            >
+              Go
+            </button>
+          </div>
+          {amountError && (
+            <p id="payment-amount-error" role="alert" className="mt-1 text-xs text-rose-300">
+              {amountError}
+            </p>
+          )}
+        </form>
+
+        <div className="order-2 flex items-center gap-1.5 sm:order-3 sm:gap-2">
           {/* Zoom controls */}
           <div className="hidden md:flex items-center gap-1 bg-gray-900 border border-gray-800 rounded-xl px-2 py-1">
             <button
@@ -147,7 +214,7 @@ export default function Home() {
           {/* Download & Print Quick Buttons */}
           <button
             onClick={handlePrint}
-            className="hidden sm:flex items-center gap-1.5 py-2 px-3 text-xs font-bold text-gray-200 bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-xl transition"
+            className="hidden sm:flex items-center gap-1.5 py-1.5 sm:py-2 px-3 text-xs font-bold text-gray-200 bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-xl transition"
           >
             <Printer className="w-3.5 h-3.5 text-yellow-300" />
             <span>Print</span>
@@ -156,7 +223,7 @@ export default function Home() {
           <button
             onClick={handleDownload}
             disabled={isDownloading}
-            className="flex items-center gap-1.5 py-2 px-3.5 text-xs font-extrabold text-white bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 rounded-xl shadow-md transition disabled:opacity-50"
+            className="flex items-center gap-1.5 py-1.5 sm:py-2 px-3 sm:px-3.5 text-xs font-extrabold text-white bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 rounded-xl shadow-md transition disabled:opacity-50"
           >
             <Download className="w-3.5 h-3.5" />
             <span>{isDownloading ? 'Exporting...' : 'Export PNG'}</span>
@@ -185,12 +252,12 @@ export default function Home() {
                 Live Scannable Preview
               </span>
               <span className="text-[11px] text-gray-500 font-mono">
-                Aspect 1:1.77 (Poster Ratio)
+                Aspect 1:1.86 (Poster Ratio)
               </span>
             </div>
 
             {/* The Actual Poster */}
-            <PosterPreview config={config} posterRef={posterRef} scale={zoom} />
+            <PosterPreview config={previewConfig} posterRef={posterRef} scale={zoom} />
           </div>
         </div>
       </main>

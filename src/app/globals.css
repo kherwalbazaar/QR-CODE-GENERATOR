@@ -61,6 +61,23 @@ body {
   background: linear-gradient(135deg, #9333ea 0%, #7e22ce 50%, #581c87 100%);
 }
 
+/* Auto-cycling poster backgrounds (rotate every 20s) */
+.poster-bg-cycle-pink {
+  background: linear-gradient(135deg, #f0659b 0%, #d6336c 50%, #a61e4d 100%);
+}
+
+.poster-bg-cycle-blue {
+  background: linear-gradient(135deg, #4f8ff7 0%, #2563eb 50%, #1e3a8a 100%);
+}
+
+.poster-bg-cycle-green {
+  background: linear-gradient(135deg, #34d399 0%, #16a34a 50%, #14532d 100%);
+}
+
+.poster-bg-cycle-yellow {
+  background: linear-gradient(135deg, #fffdf0 0%, #fff6cf 50%, #ffe9a8 100%);
+}
+
 /* Mobile full-bleed poster (screen only) */
 @media screen and (max-width: 767px) {
   .poster-wrap {
@@ -72,13 +89,13 @@ body {
   .poster-stage {
     width: 100% !important;
     max-width: none !important;
-    height: 100vh;
-    height: 100dvh;
+    min-height: calc(100vh - 112px);
+    min-height: calc(100dvh - 112px);
     aspect-ratio: auto !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    padding-top: max(1rem, env(safe-area-inset-top)) !important;
-    padding-bottom: max(2rem, env(safe-area-inset-bottom)) !important;
+    padding-top: max(0.75rem, env(safe-area-inset-top)) !important;
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom)) !important;
   }
 }
 
