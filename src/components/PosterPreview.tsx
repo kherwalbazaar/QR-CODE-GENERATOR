@@ -46,20 +46,20 @@ const DECORATIVE_ICONS: DecorIcon[] = [
   { Icon: Gift, style: { left: '50%', top: '2%' }, rotate: '-8deg', size: 'w-6 h-6', color: 'text-yellow-300/30' },
   { Icon: Shirt, style: { left: '63%', top: '3%' }, rotate: '12deg', size: 'w-5 h-5', color: 'text-white/25' },
   { Icon: Percent, style: { left: '76%', top: '2%' }, rotate: '-16deg', size: 'w-4 h-4', color: 'text-yellow-300/35' },
-  { Icon: ShoppingCart, style: { left: '3%', top: '12%' }, rotate: '-18deg', size: 'w-6 h-6', color: 'text-white/25' },
-  { Icon: Tag, style: { right: '3%', top: '13%' }, rotate: '18deg', size: 'w-5 h-5', color: 'text-yellow-300/30' },
-  { Icon: ShoppingCart, style: { left: '2%', top: '22%' }, rotate: '-12deg', size: 'w-7 h-7', color: 'text-white/30' },
-  { Icon: Tag, style: { left: '9%', top: '31%' }, rotate: '15deg', size: 'w-5 h-5', color: 'text-yellow-300/35' },
-  { Icon: Gift, style: { left: '3%', top: '40%' }, rotate: '-8deg', size: 'w-8 h-8', color: 'text-white/25' },
-  { Icon: Store, style: { left: '9%', top: '50%' }, rotate: '12deg', size: 'w-6 h-6', color: 'text-yellow-300/30' },
-  { Icon: Shirt, style: { left: '2%', top: '59%' }, rotate: '-14deg', size: 'w-7 h-7', color: 'text-white/30' },
-  { Icon: Percent, style: { left: '10%', top: '67%' }, rotate: '8deg', size: 'w-5 h-5', color: 'text-yellow-300/35' },
-  { Icon: Shirt, style: { right: '2%', top: '23%' }, rotate: '12deg', size: 'w-7 h-7', color: 'text-white/30' },
-  { Icon: ShoppingBag, style: { right: '9%', top: '32%' }, rotate: '-15deg', size: 'w-6 h-6', color: 'text-yellow-300/35' },
-  { Icon: CreditCard, style: { right: '3%', top: '41%' }, rotate: '8deg', size: 'w-7 h-7', color: 'text-white/25' },
-  { Icon: Wallet, style: { right: '9%', top: '51%' }, rotate: '-10deg', size: 'w-6 h-6', color: 'text-yellow-300/30' },
-  { Icon: Tag, style: { right: '2%', top: '60%' }, rotate: '14deg', size: 'w-7 h-7', color: 'text-white/30' },
-  { Icon: Package, style: { right: '10%', top: '68%' }, rotate: '-6deg', size: 'w-5 h-5', color: 'text-yellow-300/35' },
+  { Icon: ShoppingCart, style: { left: '0.5%', top: '12%' }, rotate: '-18deg', size: 'w-6 h-6', color: 'text-white/25' },
+  { Icon: Tag, style: { right: '0.5%', top: '13%' }, rotate: '18deg', size: 'w-5 h-5', color: 'text-yellow-300/30' },
+  { Icon: ShoppingCart, style: { left: '0.5%', top: '22%' }, rotate: '-12deg', size: 'w-7 h-7', color: 'text-white/30' },
+  { Icon: Tag, style: { left: '0.5%', top: '31%' }, rotate: '15deg', size: 'w-5 h-5', color: 'text-yellow-300/35' },
+  { Icon: Gift, style: { left: '0.5%', top: '40%' }, rotate: '-8deg', size: 'w-7 h-7', color: 'text-white/25' },
+  { Icon: Store, style: { left: '0.5%', top: '50%' }, rotate: '12deg', size: 'w-6 h-6', color: 'text-yellow-300/30' },
+  { Icon: Shirt, style: { left: '0.5%', top: '59%' }, rotate: '-14deg', size: 'w-7 h-7', color: 'text-white/30' },
+  { Icon: Percent, style: { left: '0.5%', top: '67%' }, rotate: '8deg', size: 'w-5 h-5', color: 'text-yellow-300/35' },
+  { Icon: Shirt, style: { right: '0.5%', top: '23%' }, rotate: '12deg', size: 'w-7 h-7', color: 'text-white/30' },
+  { Icon: ShoppingBag, style: { right: '0.5%', top: '32%' }, rotate: '-15deg', size: 'w-6 h-6', color: 'text-yellow-300/35' },
+  { Icon: CreditCard, style: { right: '0.5%', top: '41%' }, rotate: '8deg', size: 'w-7 h-7', color: 'text-white/25' },
+  { Icon: Wallet, style: { right: '0.5%', top: '51%' }, rotate: '-10deg', size: 'w-6 h-6', color: 'text-yellow-300/30' },
+  { Icon: Tag, style: { right: '0.5%', top: '60%' }, rotate: '14deg', size: 'w-7 h-7', color: 'text-white/30' },
+  { Icon: Package, style: { right: '0.5%', top: '68%' }, rotate: '-6deg', size: 'w-5 h-5', color: 'text-yellow-300/35' },
 ];
 
 export const getIconComponent = (iconName: string) => {
@@ -120,11 +120,11 @@ export default function PosterPreview({
       className="poster-wrap w-full max-w-[440px] flex items-center justify-center transition-transform duration-200 select-none print:m-0 print:p-0 my-3 md:my-0 pb-6 md:pb-0"
       style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }}
     >
-      {/* Poster Container (Ratio ~ 1:1.5) */}
+      {/* Poster Container (Ratio ~ 1:1.77) */}
       <div
         ref={posterRef}
         id="poster-canvas"
-        className={`poster-stage relative w-full max-w-[440px] aspect-[1/1.5] poster-bg-${config.theme} rounded-none shadow-2xl overflow-hidden flex flex-col justify-between p-4 pb-5 text-white print-area transition-all duration-1000 ease-in-out`}
+        className={`poster-stage relative w-full max-w-[440px] aspect-[1/1.77] poster-bg-${config.theme} rounded-none shadow-2xl overflow-hidden flex flex-col justify-between py-4 px-2 pb-5 text-white print-area transition-all duration-1000 ease-in-out`}
         style={{
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.65)',
         }}
@@ -213,7 +213,7 @@ export default function PosterPreview({
         {/* CENTER SECTION: DYNAMIC QR CODE CARD */}
         <div className="relative z-10 flex justify-center my-auto py-1">
           <div
-            className={`bg-white p-2 rounded-3xl shadow-2xl border-4 ${theme.bracketColor} relative w-[270px] aspect-square flex items-center justify-center`}
+            className={`bg-white p-2 rounded-3xl shadow-2xl border-[6px] border-[#a30045] relative w-[calc(100%_+_16px)] max-w-[400px] shrink-0 aspect-square flex items-center justify-center`}
           >
             {/* Corner Accent L-Brackets */}
             <div
@@ -233,10 +233,10 @@ export default function PosterPreview({
             <div className="relative flex items-center justify-center bg-white rounded-xl">
               <QRCodeSVG
                 value={qrValue}
-                size={246}
+                size={352}
                 level="H"
                 includeMargin={false}
-                className="w-full h-full max-w-[246px] max-h-[246px]"
+                className="w-full h-full max-w-[352px] max-h-[352px]"
               />
 
               {/* Center Logo / Watermark Badge */}
