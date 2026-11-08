@@ -36,9 +36,9 @@ export const DEFAULT_POSTER_CONFIG: PosterConfig = {
   currency: 'INR',
   transactionNote: 'Payment to Kherwal Bazaar',
   customQrData: 'https://kherwalbazaar.com',
-  qrCenterType: 'text',
+  qrCenterType: 'image',
   qrCenterText: 'KB',
-  qrCenterImage: null,
+  qrCenterImage: '/qr-center-logo.png',
   theme: 'crimson',
   showPaymentLogos: true,
   features: [

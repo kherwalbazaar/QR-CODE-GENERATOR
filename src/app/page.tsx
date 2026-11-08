@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useCallback } from 'react';
-import { toPng } from 'html-to-image';
+import { toSvg } from 'html-to-image';
 import confetti from 'canvas-confetti';
 import {
   Printer,
@@ -26,14 +26,50 @@ export default function Home() {
     setIsDownloading(true);
 
     try {
-      // Small delay to allow any pending font or DOM renders
-      await new Promise((resolve) => setTimeout(resolve, 150));
+      const node = posterRef.current;
+      const { width, height } = node.getBoundingClientRect();
+      const pixelRatio = 3; // Ultra-high resolution 3x for print & display
 
-      const dataUrl = await toPng(posterRef.current, {
-        cacheBust: true,
-        pixelRatio: 3, // Ultra-high resolution 3x for print & display
-        quality: 0.98,
+      // Build the SVG ourselves instead of using html-to-image's toPng:
+      // its image loader waits on requestAnimationFrame, which never fires
+      // when the browser window is minimized/occluded, so the export hangs.
+      let svgDataUrl: string;
+      try {
+        svgDataUrl = await Promise.race([
+          toSvg(node, { cacheBust: true }),
+          new Promise<never>((_, reject) =>
+            window.setTimeout(() => reject(new Error('SVG generation timed out')), 15000)
+          ),
+        ]);
+      } catch {
+        // Font embedding can stall on slow networks; retry without web fonts.
+        svgDataUrl = await toSvg(node, { cacheBust: true, skipFonts: true });
+      }
+
+      const img = new Image();
+      await new Promise<void>((resolve, reject) => {
+        const timer = window.setTimeout(
+          () => reject(new Error('Poster image render timed out')),
+          20000
+        );
+        img.onload = () => {
+          window.clearTimeout(timer);
+          resolve();
+        };
+        img.onerror = () => {
+          window.clearTimeout(timer);
+          reject(new Error('Poster image render failed'));
+        };
+        img.src = svgDataUrl;
       });
+
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(width * pixelRatio);
+      canvas.height = Math.round(height * pixelRatio);
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('Canvas 2D context unavailable');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/png');
 
       const filename = `${(config.storeNameLine1 || 'POSTER')
         .replace(/[^a-zA-Z0-9]/g, '_')

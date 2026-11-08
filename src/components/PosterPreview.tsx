@@ -256,7 +256,9 @@ export default function PosterPreview({
                   <img
                     src={config.qrCenterImage}
                     alt="Store Logo"
-                    className="w-12 h-12 object-contain bg-white p-1 rounded-lg shadow-md border-2 border-gray-200"
+                    loading="eager"
+                    decoding="sync"
+                    className="w-16 h-16 object-contain bg-white p-1 rounded-xl shadow-md border-2 border-[#a30045]"
                   />
                 </div>
               )}
