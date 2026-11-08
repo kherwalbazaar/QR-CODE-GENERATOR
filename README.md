@@ -47,6 +47,23 @@ npm run build
 npm start
 ```
 
+### 3. Supabase live amounts in production
+The live QR feature reads the newest row from `public.amount_value`. Before
+deploying, configure these variables in the hosting provider's environment
+settings for the production environment:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=<Supabase project URL>
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<Supabase publishable key>
+```
+
+Use the public project URL and publishable key from the connected Supabase
+project (the Admin app uses these same variables). Never use a service-role key
+for `NEXT_PUBLIC_*` variables. Since Next.js embeds public environment variables
+at build time, redeploy after adding or changing them. Apply
+`supabase/migrations/20261108000001_amount_value.sql` to the Supabase project as
+well.
+
 ---
 
 ## 📂 Project Structure

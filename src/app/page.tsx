@@ -24,7 +24,9 @@ export default function Home() {
   useEffect(() => {
     const client = supabase;
     if (!client) {
-      setSupabaseError('Supabase is not configured for live amounts.');
+      setSupabaseError(
+        'Live amounts unavailable: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in your hosting settings, then redeploy.'
+      );
       return;
     }
 
