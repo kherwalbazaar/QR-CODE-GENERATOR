@@ -14,6 +14,7 @@ body {
   background-color: #0b0f19;
   color: #f3f4f6;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 /* Custom text stroke effects */
@@ -78,20 +79,13 @@ body {
   background: linear-gradient(135deg, #fffdf0 0%, #fff6cf 50%, #ffe9a8 100%);
 }
 
+.poster-qr {
+  width: min(100%, 352px, max(120px, calc(100dvh - 430px)));
+}
+
 /* Mobile full-bleed poster (screen only) */
 @media screen and (max-width: 767px) {
-  .poster-wrap {
-    width: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
   .poster-stage {
-    width: 100% !important;
-    max-width: none !important;
-    min-height: calc(100vh - 112px);
-    min-height: calc(100dvh - 112px);
-    aspect-ratio: auto !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     padding-top: max(0.75rem, env(safe-area-inset-top)) !important;
