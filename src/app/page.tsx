@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <div className="h-screen h-[100dvh] overflow-hidden bg-[#070b12] text-gray-100 flex flex-col font-poppins selection:bg-pink-600 selection:text-white">
       {/* Main Content Area */}
-      <main className="flex-1 min-h-0 max-w-7xl w-full mx-auto p-0 sm:px-6 sm:py-4 lg:p-6 flex flex-col overflow-hidden">
+      <main className="flex-1 min-h-0 w-full mx-auto p-0 flex flex-col overflow-hidden">
         <form
           onSubmit={handleAmountSubmit}
           className="no-print mx-auto mt-2 mb-2 w-full max-w-[440px] shrink-0 px-3 sm:px-0"
@@ -61,7 +61,7 @@ export default function Home() {
                 }}
                 aria-invalid={Boolean(amountError)}
                 aria-describedby={amountError ? 'payment-amount-error' : undefined}
-                className="h-10 w-full rounded-xl border border-gray-700 bg-gray-900 pl-9 pr-3 text-sm text-white placeholder:text-gray-500 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/30"
+                className="h-10 w-full rounded-xl border border-gray-700 bg-[#070b12] pl-9 pr-3 text-sm text-white placeholder:text-gray-500 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/30"
               />
             </div>
             <button

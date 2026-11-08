@@ -192,13 +192,13 @@ export default function PosterPreview({
 
   return (
     <div
-      className="poster-wrap h-full min-h-0 w-auto max-w-full aspect-[1/1.86] flex items-center justify-center transition-transform duration-200 select-none print:m-0 print:p-0 m-0"
+      className={`poster-wrap h-full min-h-0 w-full flex items-center justify-center ${theme.bgClass} transition-transform duration-200 select-none print:m-0 print:p-0 m-0`}
       style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }}
     >
       {/* Poster Container (Ratio ~ 1:1.86) */}
       <div
         id="poster-canvas"
-        className={`poster-stage relative h-full w-full aspect-auto ${theme.bgClass} rounded-none shadow-2xl overflow-hidden flex flex-col justify-between py-4 px-2 pb-5 print-area`}
+        className={`poster-stage relative h-full w-auto max-w-full aspect-[1/1.86] ${theme.bgClass} rounded-none shadow-2xl overflow-hidden flex flex-col justify-between py-4 px-2 pb-5 print-area`}
         style={{
           color: isLight ? '#5c0027' : '#ffffff',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.65)',
